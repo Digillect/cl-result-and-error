@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Digillect.CommonLibraries.ResultAndError", "src\Digillect.CommonLibraries.ResultAndError\Digillect.CommonLibraries.ResultAndError.csproj", "{F7B39C8A-8F78-4B66-BA6E-0B47A76EFE59}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution items", "Solution items", "{668A4490-48A4-4EE0-94BE-8F663A0B46F9}"
+	ProjectSection(SolutionItems) = preProject
+		Directory.Build.Props = Directory.Build.Props
+		.github\workflows\ci.yml = .github\workflows\ci.yml
+		.github\workflows\prerelease.yml = .github\workflows\prerelease.yml
+		.github\workflows\release.yml = .github\workflows\release.yml
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Digillect.CommonLibraries.ResultAndError.FluentAssertions", "src\Digillect.CommonLibraries.ResultAndError.FluentAssertions\Digillect.CommonLibraries.ResultAndError.FluentAssertions.csproj", "{DE7049EC-3275-43AE-A4B2-E0A14443F5E6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F7B39C8A-8F78-4B66-BA6E-0B47A76EFE59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7B39C8A-8F78-4B66-BA6E-0B47A76EFE59}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7B39C8A-8F78-4B66-BA6E-0B47A76EFE59}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7B39C8A-8F78-4B66-BA6E-0B47A76EFE59}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE7049EC-3275-43AE-A4B2-E0A14443F5E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE7049EC-3275-43AE-A4B2-E0A14443F5E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE7049EC-3275-43AE-A4B2-E0A14443F5E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE7049EC-3275-43AE-A4B2-E0A14443F5E6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

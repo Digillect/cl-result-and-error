@@ -1,0 +1,13 @@
+<Project>
+
+    <PropertyGroup>
+        <Version>1.0.0</Version>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <Authors>Gregory Nickonov</Authors>
+        <Company>Digillect Team</Company>
+        <Product>Digillect Common Libraries</Product>
+        <Copyright>Copyright © 2022 Gregory Nickonov</Copyright>
+        <RepositoryUrl>https://github.com/Digillect/cl-result-and-error</RepositoryUrl>
+    </PropertyGroup>
+
+</Project>
