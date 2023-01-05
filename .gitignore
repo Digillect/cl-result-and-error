@@ -69,3 +69,6 @@ __MACOSX/
 *.DS_Store
 [Dd]esktop.ini
 [Tt]humbs.db
+
+# Verify Snapshot Testing
+*.received.*
