@@ -44,7 +44,7 @@ jobs:
 
       - name: Test
         continue-on-error: true
-        run: dotnet test --no-restore --configuration Release --logger trx --results-directory "./artifacts"
+        run: dotnet test --no-restore --configuration Release --logger trx --results-directory "./artifacts" -v d
 
       - name: Process test reports
         uses: im-open/process-dotnet-test-results@v2.2.5
