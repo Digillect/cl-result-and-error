@@ -70,7 +70,7 @@ public sealed class GeneratorTests
 
 		Assert.NotNull(stream);
 
-		using var reader = new StreamReader(stream);
+		using var reader = new StreamReader(stream!);
 
 		var syntaxTree = CSharpSyntaxTree.ParseText(reader.ReadToEnd());
 		var unused = typeof(Error); // This is required to have a reference to the assembly
