@@ -44,10 +44,18 @@ jobs:
 
       - name: Test
         continue-on-error: true
-        run: dotnet test --no-restore --configuration Release --logger trx --results-directory "./artifacts" -v d
+        run: dotnet test --configuration Release --logger trx --results-directory "./artifacts"
 
       - name: Process test reports
         uses: im-open/process-dotnet-test-results@v2.2.5
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           base-directory: './artifacts'
+
+      - name: Upload test results
+        if: failure()
+        uses: actions/upload-artifacts@v2
+        with:
+          name: verify-test-results
+          path: |
+            **/*.received.*
