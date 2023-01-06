@@ -8,15 +8,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3"/>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Digillect.CommonLibraries.ResultAndError\Digillect.CommonLibraries.ResultAndError.csproj"/>
+    <ProjectReference Include="..\..\src\Digillect.CommonLibraries.ResultAndError\Digillect.CommonLibraries.ResultAndError.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Digillect.CommonLibraries.ResultAndError.SourceGenerators\Digillect.CommonLibraries.ResultAndError.SourceGenerators.csproj" OutputItemType="Analyzer"/>
+    <ProjectReference Include="..\..\src\Digillect.CommonLibraries.ResultAndError.SourceGenerators\Digillect.CommonLibraries.ResultAndError.SourceGenerators.csproj" OutputItemType="Analyzer" />
   </ItemGroup>
 
 </Project>
