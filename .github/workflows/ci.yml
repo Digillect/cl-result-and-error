@@ -24,7 +24,7 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: '6.0.x'
+          dotnet-version: '7.0.x'
 
       - name: Setup GitVersion
         uses: gittools/actions/gitversion/setup@v0.9.15
@@ -46,12 +46,6 @@ jobs:
         continue-on-error: true
         run: dotnet test --configuration Release --logger trx --results-directory "./artifacts"
 
-      - name: Process test reports
-        uses: im-open/process-dotnet-test-results@v2.2.5
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          base-directory: './artifacts'
-
       - name: Upload test results
         if: failure()
         uses: actions/upload-artifact@v2
@@ -59,3 +53,9 @@ jobs:
           name: verify-test-results
           path: |
             **/*.received.*
+
+      - name: Process test reports
+        uses: im-open/process-dotnet-test-results@v2.2.5
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          base-directory: './artifacts'
