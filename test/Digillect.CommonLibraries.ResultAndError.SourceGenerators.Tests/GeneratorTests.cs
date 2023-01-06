@@ -1,7 +1,6 @@
 using System.Reflection;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
-using Xunit;
 
 namespace Digillect.CommonLibraries.ResultAndError.SourceGenerators.Tests;
 
