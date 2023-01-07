@@ -3,7 +3,7 @@ name: Release
 on:
   push:
     tags:
-      - "v[0-9]+.[0-9]+.[0-9]+"
+      - "v*"
 
 env:
   DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
@@ -25,30 +25,22 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: '6.0.x'
-
-      - name: Setup GitVersion
-        uses: gittools/actions/gitversion/setup@v0.9.15
-        with:
-          versionSpec: '5.x'
+          dotnet-version: '7.0.x'
 
       - name: Determine version
-        id: gitversion
-        uses: gittools/actions/gitversion/execute@v0.9.15
+        id: version
+        uses: nowsprinting/check-version-format-action@v3
         with:
-          useConfigFile: true
-          configFilePath: ./.github/gitversion.yml
-          additionalArguments: "/overrideconfig increment=None"
+          prefix: 'v'
 
       - name: Install dependencies
         run: dotnet restore
 
       - name: Build
-        run: |
-          dotnet build --no-restore -c Release \
-            /p:Version=${{ steps.gitversion.outputs.AssemblySemVer }} \
-            /p:AssemblyVersion=${{ steps.gitversion.outputs.AssemblySemVer }} \
-            /p:InformationalVersion=${{ steps.gitversion.outputs.InformationalVersion }}
+        run: dotnet build --no-restore -c Release /p:Version="$version" /p:AssemblyVersion="$version" /p:InformationalVersion="$full_version"
+        env:
+          version: "${{ steps.version.outputs.major_without_prefix }}.${{ steps.version.outputs.minor }}.${{ steps.version.outputs.patch }}.0"
+          full_version: "${{ steps.version.outputs.major_without_prefix }}.${{ steps.version.outputs.minor }}.${{ steps.version.outputs.patch }}.0-${{ steps.version.outputs.prerelease }}"
 
       - name: Test
         run: dotnet test --no-build -c Release
@@ -56,10 +48,11 @@ jobs:
       - name: Package
         run: |
           mkdir artifacts
-          dotnet pack --no-build -c Release -o artifacts /p:Version=${{ steps.gitversion.outputs.AssemblySemVer }}
+          dotnet pack --no-build -c Release -o artifacts /p:Version="${{ steps.version.outputs.full_without_prefix }}"
 
       - name: Upload package to MyGet
         run: dotnet nuget push artifacts/*.nupkg -k ${{ secrets.MYGET_API_KEY }} -s https://www.myget.org/F/digillect/api/v3/index.json
 
-#      - name: Upload package to NuGet
-#        run: dotnet nuget push artifacts/*.nupkg -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json
+      - name: Upload package to NuGet
+        if: steps.version.outputs.is_stable
+        run: dotnet nuget push artifacts/*.nupkg -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json

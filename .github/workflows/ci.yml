@@ -29,28 +29,11 @@ jobs:
       - name: Dotnet information
         run: dotnet --info
 
-      - name: Setup GitVersion
-        uses: gittools/actions/gitversion/setup@v0.9.15
-        with:
-          versionSpec: '5.x'
-
-      - name: Determine version
-        id: gitversion
-        uses: gittools/actions/gitversion/execute@v0.9.15
-        with:
-          useConfigFile: true
-          configFilePath: ./.github/gitversion.yml
-          additionalArguments: "/overrideconfig increment=None"
-
       - name: Install dependencies
         run: dotnet restore
 
       - name: Build
-        run: |
-          dotnet build -c Release \
-            /p:Version=${{ steps.gitversion.outputs.AssemblySemVer }} \
-            /p:AssemblyVersion=${{ steps.gitversion.outputs.AssemblySemVer }} \
-            /p:InformationalVersion=${{ steps.gitversion.outputs.InformationalVersion }}
+        run: dotnet build --no-restore -c Release
 
       - name: Test
         continue-on-error: true
