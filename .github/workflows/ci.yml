@@ -50,7 +50,7 @@ jobs:
 
       - name: Test
         continue-on-error: true
-        run: dotnet test --no-restore -c Release --logger trx --results-directory "./artifacts"
+        run: dotnet test --no-build -c Release --logger trx --results-directory "./artifacts"
 
       - name: Upload test results
         if: failure()
