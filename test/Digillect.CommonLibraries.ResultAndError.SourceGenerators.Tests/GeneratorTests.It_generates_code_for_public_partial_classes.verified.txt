@@ -1,0 +1,33 @@
+﻿namespace WeatherAPI.Services;
+
+partial class PublicPartialError
+{
+	public static partial PublicPartialError Internal() => InternalError.Instance;
+
+	public static partial Digillect.Error CodeAndMessage(int code, string message) => new CodeAndMessageError {
+		Code = code,
+		Message = message,
+	};
+
+	public static partial Digillect.Error CodeAndMessageWithDefaults(int code = 400, string? message = null) => new CodeAndMessageWithDefaultsError {
+		Code = code,
+		Message = message,
+	};
+
+	public sealed partial class InternalError : PublicPartialError
+	{
+		public static readonly InternalError Instance = new();
+	}
+
+	public sealed partial class CodeAndMessageError : PublicPartialError
+	{
+		public int Code { get; init; }
+		public string Message { get; init; }
+	}
+
+	public sealed partial class CodeAndMessageWithDefaultsError : PublicPartialError
+	{
+		public int Code { get; init; }
+		public string? Message { get; init; }
+	}
+}

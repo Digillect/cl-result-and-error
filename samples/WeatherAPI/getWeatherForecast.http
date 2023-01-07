@@ -1,0 +1,31 @@
+### [MANUAL] Success (defaults)
+GET http://localhost:5000/WeatherForecast/manual
+###
+
+### [MANUAL] Success (valid parameters)
+GET http://localhost:5000/WeatherForecast/manual?offsetInDays=2&count=2
+###
+
+### [MANUAL] Error: Bad Request – Invalid count
+GET http://localhost:5000/WeatherForecast/manual?count=-1
+###
+
+### [MANUAL] Error: Internal Server Error
+GET http://localhost:5000/WeatherForecast/manual?offsetInDays=100
+###
+
+### [GENERATED] Success (defaults)
+GET http://localhost:5000/WeatherForecast/generated
+###
+
+### [GENERATED] Success (valid parameters)
+GET http://localhost:5000/WeatherForecast/generated?offsetInDays=2&count=2
+###
+
+### [GENERATED] Error: Bad Request – Invalid count
+GET http://localhost:5000/WeatherForecast/generated?count=-1
+###
+
+### [GENERATED] Error: Internal Server Error
+GET http://localhost:5000/WeatherForecast/generated?offsetInDays=100
+###

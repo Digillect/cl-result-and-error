@@ -1,0 +1,11 @@
+﻿namespace WeatherAPI.Services;
+
+partial class InternalAbstractPartialError
+{
+	public static partial InternalAbstractPartialError Internal() => InternalError.Instance;
+
+	public sealed partial class InternalError : InternalAbstractPartialError
+	{
+		public static readonly InternalError Instance = new();
+	}
+}

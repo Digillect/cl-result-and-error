@@ -7,6 +7,7 @@ on:
   pull_request:
     branches:
       - main
+      - feature/*
 
 env:
   DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
@@ -23,7 +24,10 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: '6.0.x'
+          dotnet-version: '7.0.x'
+
+      - name: Dotnet information
+        run: dotnet --info
 
       - name: Setup GitVersion
         uses: gittools/actions/gitversion/setup@v0.9.15
@@ -38,5 +42,30 @@ jobs:
           configFilePath: ./.github/gitversion.yml
           additionalArguments: "/overrideconfig increment=None"
 
+      - name: Install dependencies
+        run: dotnet restore
+
       - name: Build
-        run: dotnet build -c Release /p:Version=${{ steps.gitversion.outputs.AssemblySemVer }} /p:AssemblyVersion=${{ steps.gitversion.outputs.AssemblySemVer }} /p:InformationalVersion=${{ steps.gitversion.outputs.InformationalVersion }}
+        run: |
+          dotnet build -c Release \
+            /p:Version=${{ steps.gitversion.outputs.AssemblySemVer }} \
+            /p:AssemblyVersion=${{ steps.gitversion.outputs.AssemblySemVer }} \
+            /p:InformationalVersion=${{ steps.gitversion.outputs.InformationalVersion }}
+
+      - name: Test
+        continue-on-error: true
+        run: dotnet test --no-build -c Release --logger trx --results-directory "./artifacts"
+
+      - name: Upload test results
+        if: failure()
+        uses: actions/upload-artifact@v2
+        with:
+          name: verify-test-results
+          path: |
+            **/*.received.*
+
+      - name: Process test reports
+        uses: im-open/process-dotnet-test-results@v2.2.5
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          base-directory: './artifacts'
