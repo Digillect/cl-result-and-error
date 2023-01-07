@@ -46,7 +46,7 @@ jobs:
             /p:InformationalVersion=${{ steps.gitversion.outputs.InformationalVersion }}
 
       - name: Test
-        run: dotnet test --no-build -c Release --logger trx --results-directory "./artifacts"
+        run: dotnet test --no-build -c Release
 
       - name: Package
         run: |
