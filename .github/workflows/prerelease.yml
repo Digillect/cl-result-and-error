@@ -35,17 +35,23 @@ jobs:
           configFilePath: ./.github/gitversion.yml
           additionalArguments: "/overrideconfig increment=None"
 
+      - name: Install dependencies
+        run: dotnet restore
+
       - name: Build
         run: |
-          dotnet build -c Release \
+          dotnet build --no-restore -c Release \
             /p:Version=${{ steps.gitversion.outputs.AssemblySemVer }} \
             /p:AssemblyVersion=${{ steps.gitversion.outputs.AssemblySemVer }} \
             /p:InformationalVersion=${{ steps.gitversion.outputs.InformationalVersion }}
 
+      - name: Test
+        run: dotnet test --no-build -c Release --logger trx --results-directory "./artifacts"
+
       - name: Package
         run: |
           mkdir artifacts
-          dotnet pack -c Release -o artifacts --no-build /p:Version=${{ steps.gitversion.outputs.AssemblySemVer }}
+          dotnet pack --no-build -c Release -o artifacts /p:Version=${{ steps.gitversion.outputs.AssemblySemVer }}
 
       - name: Upload package to MyGet
         run: dotnet nuget push artifacts/*.nupkg -k ${{ secrets.MYGET_API_KEY }} -s https://www.myget.org/F/digillect/api/v3/index.json

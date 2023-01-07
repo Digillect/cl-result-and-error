@@ -46,7 +46,11 @@ jobs:
         run: dotnet restore
 
       - name: Build
-        run: dotnet build --no-restore -c Release /p:Version=${{ steps.gitversion.outputs.AssemblySemVer }} /p:AssemblyVersion=${{ steps.gitversion.outputs.AssemblySemVer }} /p:InformationalVersion=${{ steps.gitversion.outputs.InformationalVersion }}
+        run: |
+          dotnet build -c Release \
+            /p:Version=${{ steps.gitversion.outputs.AssemblySemVer }} \
+            /p:AssemblyVersion=${{ steps.gitversion.outputs.AssemblySemVer }} \
+            /p:InformationalVersion=${{ steps.gitversion.outputs.InformationalVersion }}
 
       - name: Test
         continue-on-error: true
